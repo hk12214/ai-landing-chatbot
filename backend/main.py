@@ -1,3 +1,5 @@
 from fastapi import FastAPI
+from auth import auth_router
 
-app = FastAPI(title="RAG Chatbot Project")
+app = FastAPI()
+app.include_router(auth_router)
