@@ -1,5 +1,4 @@
 const API_URL = 'http://127.0.0.1:8000'; // Your backend URL
-alert("helo")
 // Register
 async function register() {
   const username = document.getElementById('reg-username').value;
@@ -78,4 +77,19 @@ async function uploadRag() {
 function logout() {
   localStorage.removeItem('token');
   window.location.href = 'index.html';
+}
+
+// Example: upload file
+async function uploadFile(file, token) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch(`${API_URL}/rag/upload`, {
+    method: "POST",
+    body: formData,
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  });
+  return res.json();
 }

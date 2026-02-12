@@ -3,8 +3,22 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import User
 from utils import hash_password, verify_password, create_access_token
-
+from fastapi import UploadFile, File
 auth_router = APIRouter()
+
+# Example: a placeholder function for getting the current user
+def get_current_user():
+    # here you should check token/session
+    # for now we return a dummy user
+    class User:
+        username = "Helen"
+    return User()
+
+# Protected route goes here
+@auth_router.get("/protected")
+async def protected_route(current_user=Depends(get_current_user)):
+    return {"message": f"Hello {current_user.username}"}
+
 
 @auth_router.post("/auth/register")
 def register(username: str, password: str, db: Session = Depends(get_db)):
@@ -23,3 +37,10 @@ def login(username: str, password: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     token = create_access_token({"sub": username})
     return {"access_token": token, "token_type": "bearer"}
+
+
+@auth_router.post("/rag/upload")
+async def upload_rag(file: UploadFile = File(...), current_user=Depends(get_current_user)):
+    contents = await file.read()
+    # process contents
+    return {"filename": file.filename, "size": len(contents)}
