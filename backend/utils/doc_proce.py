@@ -1,5 +1,6 @@
 # backend/utils/doc_processor.py
 from typing import List
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter # type: ignore
 from langchain.embeddings import OpenAIEmbeddings # type: ignore
 import numpy as np

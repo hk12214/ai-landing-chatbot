@@ -6,6 +6,14 @@ from auth.dependencies import get_admin_user, get_current_user
 from models.user import User
 from routes.landing import router as landing_router
 from routes.admin import router as admin_router
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 app = FastAPI()
 
