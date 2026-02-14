@@ -1,6 +1,8 @@
 # routes/admin.py
 from fastapi import APIRouter, Depends, UploadFile, File # type: ignore
 from auth.dependencies import get_admin_user
+from utils.doc_proce import process_text, create_embeddings
+
 
 router = APIRouter()
 
