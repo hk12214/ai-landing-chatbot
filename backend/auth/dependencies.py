@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials # type: ig
 from sqlalchemy.orm import Session
 from database import get_db
 from models.user import User
-from .jwt_handler import decode_access_token
+from .jwt_handler import decode_access_token ,get_current_user
 
 security = HTTPBearer()
 
